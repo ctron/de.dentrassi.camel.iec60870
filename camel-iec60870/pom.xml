@@ -1,0 +1,138 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.dentrassi.camel.iec60870</groupId>
+        <artifactId>parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <artifactId>camel-iec60870</artifactId>
+    <packaging>bundle</packaging>
+
+    <name>Camel :: IEC 60870 :: Component</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.scada.protocols</groupId>
+            <artifactId>org.eclipse.neoscada.protocol.iec60870</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.scada.protocols</groupId>
+            <artifactId>org.eclipse.neoscada.protocol.iec60870.client</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.scada.protocols</groupId>
+            <artifactId>org.eclipse.neoscada.protocol.iec60870.client.data</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- Testing dependencies -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-paho</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Service>
+                            org.apache.camel.spi.ComponentResolver;component=iec60870-server,
+                            org.apache.camel.spi.ComponentResolver;component=iec60870-client
+                        </Export-Service>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-package-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>prepare</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>prepare-components</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>validate</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>validate-components</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>readme</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>update-readme</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <profiles>
+        <!-- enables the APT dependency so that it can be disabled in IDE 
+            builds -->
+        <profile>
+            <id>apt</id>
+            <activation>
+                <property>
+                    <name>!dummy.prop.to.keep.this.profile.active.even.when.other.profiles.are.active</name>
+                </property>
+            </activation>
+
+            <dependencies>
+                <!-- enable Camel APT processors -->
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>apt</artifactId>
+                    <version>${apache-camel-version}</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+</project>
