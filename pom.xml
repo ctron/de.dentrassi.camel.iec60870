@@ -10,7 +10,7 @@
 
     <packaging>pom</packaging>
 
-    <name>Camel :: IEC 60870 :: Parent</name>
+    <name>Camel :: IEC 60870</name>
     <description>This is an Apache Camel adapter for IEC 60870-5-104, based on the implementation of Eclipse NeoSCADA™</description>
 
     <url>https://dentrassi.de/camel-iec60870</url>
