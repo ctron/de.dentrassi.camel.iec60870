@@ -14,28 +14,30 @@
  * limitations under the License.
  */
 
-package de.dentrassi.camel.iec60870.client.internal;
+package de.dentrassi.camel.iec60870.internal.server;
 
-public class ClientConnectionMultiplexor extends AbstractConnectionMultiplexor {
+import de.dentrassi.camel.iec60870.internal.AbstractConnectionMultiplexor;
 
-	private final ClientConnection connection;
+public class ServerConnectionMultiplexor extends AbstractConnectionMultiplexor {
 
-	public ClientConnectionMultiplexor(final ClientConnection connection) {
-		this.connection = connection;
+	private final ServerInstance server;
+
+	public ServerConnectionMultiplexor(final ServerInstance server) {
+		this.server = server;
 	}
 
 	@Override
 	protected void performStart() throws Exception {
-		this.connection.start();
+		this.server.start();
 	}
 
 	@Override
 	protected void performStop() throws Exception {
-		this.connection.stop();
+		this.server.stop();
 	}
 
-	public ClientConnection getConnection() {
-		return this.connection;
+	public ServerInstance getServer() {
+		return this.server;
 	}
 
 }

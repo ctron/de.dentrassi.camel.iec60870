@@ -16,85 +16,32 @@
 
 package de.dentrassi.camel.iec60870.client;
 
-import java.util.Objects;
-
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
-import org.apache.camel.impl.DefaultEndpoint;
-import org.apache.camel.spi.Metadata;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.UriEndpoint;
-import org.apache.camel.spi.UriParam;
-import org.apache.camel.spi.UriPath;
 
+import de.dentrassi.camel.iec60870.AbstractIecEndpoint;
 import de.dentrassi.camel.iec60870.ObjectAddress;
-import de.dentrassi.camel.iec60870.Options;
-import de.dentrassi.camel.iec60870.client.internal.AbstractConnectionMultiplexor.Handle;
-import de.dentrassi.camel.iec60870.client.internal.ClientConnectionMultiplexor;
+import de.dentrassi.camel.iec60870.internal.client.ClientConnectionMultiplexor;
 
 @UriEndpoint(scheme = "iec60870-client", syntax = "iec60870-client:host:port/00-00-00-00-00", title = "IEC 60870-5-104 client", consumerClass = ClientConsumer.class, label = "iot")
-public class ClientEndpoint extends DefaultEndpoint {
+public class ClientEndpoint extends AbstractIecEndpoint<ClientConnectionMultiplexor> {
 
-	private final ClientConnectionMultiplexor connection;
-	private Handle connectionHandle;
-
-	/**
-	 * The object information address
-	 */
-	@UriPath(name = "uriPath")
-	@Metadata(required = "true")
-	private final ObjectAddress address;
-
-	// dummy for doc generation
-	@UriParam
-	private Options connectionOptions;
-
-	/**
-	 * An identifier grouping connection instances
-	 */
-	@UriParam
-	private String connectionId;
-
-	public ClientEndpoint(final String uri, final ClientComponent component,
+	public ClientEndpoint(final String uri, final DefaultComponent component,
 			final ClientConnectionMultiplexor connection, final ObjectAddress address) {
-		super(uri, component);
-
-		Objects.requireNonNull(connection);
-		Objects.requireNonNull(address);
-
-		this.connection = connection;
-		this.address = address;
-	}
-
-	public ObjectAddress getAddress() {
-		return this.address;
-	}
-
-	@Override
-	protected void doStart() throws Exception {
-		super.doStart();
-		this.connectionHandle = this.connection.register();
-	}
-
-	@Override
-	protected void doStop() throws Exception {
-		this.connectionHandle.unregister();
-		super.doStop();
+		super(uri, component, connection, address);
 	}
 
 	@Override
 	public Producer createProducer() throws Exception {
-		return new ClientProducer(this, this.connection.getConnection());
+		return new ClientProducer(this, getConnection().getConnection());
 	}
 
 	@Override
 	public Consumer createConsumer(final Processor processor) throws Exception {
-		return new ClientConsumer(this, processor, this.connection.getConnection());
-	}
-
-	@Override
-	public boolean isSingleton() {
-		return false;
+		return new ClientConsumer(this, processor, getConnection().getConnection());
 	}
 
 }

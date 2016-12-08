@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package de.dentrassi.camel.iec60870.client.internal;
+package de.dentrassi.camel.iec60870.internal.client;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,8 @@ import org.eclipse.neoscada.protocol.iec60870.client.data.DataModule;
 import org.eclipse.neoscada.protocol.iec60870.client.data.DataModuleContext;
 
 import de.dentrassi.camel.iec60870.ObjectAddress;
-import de.dentrassi.camel.iec60870.Options;
+import de.dentrassi.camel.iec60870.client.ClientOptions;
+import de.dentrassi.camel.iec60870.internal.DiscardAckModule;
 import io.netty.channel.ChannelHandlerContext;
 
 public class ClientConnection {
@@ -84,11 +85,11 @@ public class ClientConnection {
 
 	private final String host;
 	private final int port;
-	private final Options options;
+	private final ClientOptions options;
 
 	private AutoConnectClient client;
 
-	public ClientConnection(final String host, final int port, final Options options) {
+	public ClientConnection(final String host, final int port, final ClientOptions options) {
 		this.host = host;
 		this.port = port;
 		this.options = options;
@@ -96,7 +97,7 @@ public class ClientConnection {
 
 	public void start() {
 		final DataModule dataModule = new DataModule(this.dataHandler, this.options.getDataModuleOptions());
-		final ModulesFactory factory = () -> Collections.singletonList(dataModule);
+		final ModulesFactory factory = () -> Arrays.asList(dataModule, new DiscardAckModule());
 		this.client = new AutoConnectClient(this.host, this.port, this.options.getProtocolOptions(), factory,
 				this.stateListener);
 	}

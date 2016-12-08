@@ -66,7 +66,7 @@
         <!-- enable snapshots for milo -->
         <repository>
             <id>download.neoscada</id>
-            <url>http://download.eclipse.org/eclipsescada/downloads/org.eclipse.scada/drops/0.4.0/S201612010518/maven</url>
+            <url>http://download.eclipse.org/eclipsescada/downloads/org.eclipse.scada/drops/0.4.0/S201612070556/maven</url>
         </repository>
     </repositories>
 
@@ -141,6 +141,12 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-paho</artifactId>
+                <version>${apache-camel-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-stream</artifactId>
                 <version>${apache-camel-version}</version>
                 <scope>test</scope>
             </dependency>

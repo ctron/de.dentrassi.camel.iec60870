@@ -1,11 +1,11 @@
-[[Iec60870Client-ClientComponent]]
+[[Iec60870Server-ServerComponent]]
 
-IEC 60870-5-104 Client Component
+IEC 60870-5-104 Server Component
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 *Available as of Camel 2.20*
 
-The *IEC 60870-5-104 Client* component provides access to IEC 60870 servers using the
+The *IEC 60870-5-104 Server* component provides access to IEC 60870 servers using the
 http://eclipse.org/eclipsescada[Eclipse NeoSCADA™] implementation.
 
 *Java 8*: This component requires Java 8 at runtime. 
@@ -27,7 +27,7 @@ for this component:
 
 
 // component options: START
-The IEC 60870-5-104 client component supports 1 options which are listed below.
+The IEC 60870-5-104 server component supports 1 options which are listed below.
 
 
 
@@ -42,7 +42,7 @@ The IEC 60870-5-104 client component supports 1 options which are listed below.
 
 
 
-[[Iec60870Client-URIformat]]
+[[Iec60870Server-URIformat]]
 URI format
 ^^^^^^^^^^
 
@@ -50,36 +50,29 @@ The URI syntax of the endpoint is:
 
 [source]
 ------------------------
-iec60870-client://host:port/00-01-02-03-04
+iec60870-server://host:port/00-01-02-03-04
 ------------------------
 
 The information object address is encoded in the path in the syntax shows above. Please
 note that always the full, 5 octet address format is being used. Unused octets have to be filled
 with zero.
 
-[[Iec60870Client-URIOptions]]
+[[Iec60870Server-URIOptions]]
 URI options
 ^^^^^^^^^^^
 
 
 
 
-
-
-
-
-
-
-
-
 // endpoint options: START
-The IEC 60870-5-104 client component supports 13 endpoint options which are listed below:
+The IEC 60870-5-104 server component supports 14 endpoint options which are listed below:
 
 [width="100%",cols="2s,1,1m,1m,5",options="header"]
 |=======================================================================
 | Name | Group | Default | Java Type | Description
 | uriPath | common |  | ObjectAddress | *Required* The object information address
 | dataModuleOptions | common |  | DataModuleOptions | Data module options
+| filterNonExecute | common | true | boolean | Filter out all requests which don't have the execute bit set
 | protocolOptions | common |  | ProtocolOptions | Protocol options
 | bridgeErrorHandler | consumer | false | boolean | Allows for bridging the consumer to the Camel routing Error Handler which mean any exceptions occurred while the consumer is trying to pickup incoming messages or the likes will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions that will be logged at WARN/ERROR level and ignored.
 | exceptionHandler | consumer (advanced) |  | ExceptionHandler | To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this options is not in use. By default the consumer will deal with exceptions that will be logged at WARN/ERROR level and ignored.
@@ -96,26 +89,10 @@ The IEC 60870-5-104 client component supports 13 endpoint options which are list
 
 
 
-A connection instance if identified by the host and port part of the URI, plus all parameters in the "id" group.
-If a new connection id is encountered the connection options will be evaluated and the connection instance
-is created with those options.
-
-
-NOTE: If two URIs specify the same connection (host, port, …) but different connection options, then it is
-undefined which of those connection options will be used. 
-
-
-The final connection options will be evaluated in the following order:
-
-* If present, the +connectionOptions+ parameter will be used
-* Otherwise the +defaultConnectionOptions+ instance is copied and customized in the following steps
-* Apply +protocolOptions+ if present
-* Apply +dataModuleOptions+ if present
-* Apply all explicit connection parameters (e.g. +timeZone+)
 
 
 
-[[Iec60870Client-SeeAlso]]
+[[Iec60870Server-SeeAlso]]
 See Also
 ^^^^^^^^
 

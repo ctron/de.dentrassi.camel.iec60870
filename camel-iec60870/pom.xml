@@ -37,6 +37,24 @@
             <artifactId>org.eclipse.neoscada.protocol.iec60870.client.data</artifactId>
             <version>0.4.0</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.eclipse.scada.protocols</groupId>
+            <artifactId>org.eclipse.neoscada.protocol.iec60870.server</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.scada.protocols</groupId>
+            <artifactId>org.eclipse.neoscada.protocol.iec60870.server.data</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.eclipse.scada.utils</groupId>
+            <artifactId>org.eclipse.scada.utils</artifactId>
+            <version>0.3.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -57,6 +75,11 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-paho</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-stream</artifactId>
             <scope>test</scope>
         </dependency>
 

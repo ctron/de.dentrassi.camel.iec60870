@@ -25,10 +25,9 @@ import org.eclipse.neoscada.protocol.iec60870.ASDUAddressType;
 import org.eclipse.neoscada.protocol.iec60870.CauseOfTransmissionType;
 import org.eclipse.neoscada.protocol.iec60870.InformationObjectAddressType;
 import org.eclipse.neoscada.protocol.iec60870.ProtocolOptions;
-import org.eclipse.neoscada.protocol.iec60870.client.data.DataModuleOptions;
 
 @UriParams
-public class Options {
+public abstract class BaseOptions<T extends BaseOptions<T>> {
 
 	/**
 	 * Protocol options
@@ -36,27 +35,13 @@ public class Options {
 	@UriParam(javaType = "ProtocolOptions")
 	private ProtocolOptions.Builder protocolOptions;
 
-	/**
-	 * Data module options
-	 */
-	@UriParam(javaType = "DataModuleOptions")
-	private DataModuleOptions.Builder dataModuleOptions;
-
-	public Options() {
+	public BaseOptions() {
 		this.protocolOptions = new ProtocolOptions.Builder();
-		this.dataModuleOptions = new DataModuleOptions.Builder();
 	}
 
-	public Options(final Options other) {
-		this(other.getProtocolOptions(), other.getDataModuleOptions());
-	}
-
-	public Options(final ProtocolOptions protocolOptions, final DataModuleOptions dataOptions) {
+	public BaseOptions(final ProtocolOptions protocolOptions) {
 		Objects.requireNonNull(protocolOptions);
-		Objects.requireNonNull(dataOptions);
-
 		this.protocolOptions = new ProtocolOptions.Builder(protocolOptions);
-		this.dataModuleOptions = new DataModuleOptions.Builder(dataOptions);
 	}
 
 	public void setProtocolOptions(final ProtocolOptions protocolOptions) {
@@ -69,33 +54,7 @@ public class Options {
 		return this.protocolOptions.build();
 	}
 
-	public void setDataModuleOptions(final DataModuleOptions dataModuleOptions) {
-		Objects.requireNonNull(dataModuleOptions);
-
-		this.dataModuleOptions = new DataModuleOptions.Builder(dataModuleOptions);
-	}
-
-	public DataModuleOptions getDataModuleOptions() {
-		return this.dataModuleOptions.build();
-	}
-
-	// wrapper methods - DataModuleOptions
-
-	public void setCauseSourceAddress(final Byte causeSourceAddress) {
-		this.dataModuleOptions.setCauseSourceAddress(causeSourceAddress);
-	}
-
-	public Byte getCauseSourceAddress() {
-		return this.dataModuleOptions.getCauseSourceAddress();
-	}
-
-	public void setIgnoreBackgroundScan(final boolean ignoreBackgroundScan) {
-		this.dataModuleOptions.setIgnoreBackgroundScan(ignoreBackgroundScan);
-	}
-
-	public boolean isIgnoreBackgroundScan() {
-		return this.dataModuleOptions.isIgnoreBackgroundScan();
-	}
+	public abstract T copy();
 
 	// wrapper methods - ProtocolOptions
 
@@ -143,7 +102,7 @@ public class Options {
 	/**
 	 * The common ASDU address size
 	 */
-	@UriParam(enums = "SIZE_1, SIZE_2")
+	@UriParam(enums = "SIZE_1, SIZE_2", label = "connection")
 	private ASDUAddressType adsuAddressType;
 
 	public ASDUAddressType getAdsuAddressType() {
@@ -158,7 +117,7 @@ public class Options {
 	/**
 	 * The information address size
 	 */
-	@UriParam(enums = "SIZE_1, SIZE_2, SIZE_3")
+	@UriParam(enums = "SIZE_1, SIZE_2, SIZE_3", label = "connection")
 	private InformationObjectAddressType informationObjectAddressType;
 
 	public InformationObjectAddressType getInformationObjectAddressType() {
@@ -173,7 +132,7 @@ public class Options {
 	/**
 	 * The cause of transmission type
 	 */
-	@UriParam(enums = "SIZE_1, SIZE_2")
+	@UriParam(enums = "SIZE_1, SIZE_2", label = "connection")
 	private CauseOfTransmissionType causeOfTransmissionType;
 
 	public CauseOfTransmissionType getCauseOfTransmissionType() {
@@ -188,7 +147,7 @@ public class Options {
 	/**
 	 * The timezone to use
 	 */
-	@UriParam
+	@UriParam(label = "connection")
 	private TimeZone timeZone;
 
 	public TimeZone getTimeZone() {
@@ -203,7 +162,7 @@ public class Options {
 	/**
 	 * Whether to ignore or respect DST
 	 */
-	@UriParam
+	@UriParam(label = "connection")
 	private boolean ignoreDaylightSavingTime;
 
 	public void setIgnoreDaylightSavingTime(final boolean ignoreDaylightSavingTime) {

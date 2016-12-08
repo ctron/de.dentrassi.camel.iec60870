@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.dentrassi.camel.iec60870.ObjectAddress;
-import de.dentrassi.camel.iec60870.client.internal.ClientConnection;
+import de.dentrassi.camel.iec60870.internal.client.ClientConnection;
 
 public class ClientConsumer extends DefaultConsumer {
 

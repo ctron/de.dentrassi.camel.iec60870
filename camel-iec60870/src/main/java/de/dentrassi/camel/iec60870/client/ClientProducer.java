@@ -26,7 +26,7 @@ import org.eclipse.neoscada.protocol.iec60870.asdu.types.CauseOfTransmission;
 import org.eclipse.neoscada.protocol.iec60870.asdu.types.InformationObjectAddress;
 
 import de.dentrassi.camel.iec60870.ObjectAddress;
-import de.dentrassi.camel.iec60870.client.internal.ClientConnection;
+import de.dentrassi.camel.iec60870.internal.client.ClientConnection;
 
 public class ClientProducer extends DefaultProducer {
 

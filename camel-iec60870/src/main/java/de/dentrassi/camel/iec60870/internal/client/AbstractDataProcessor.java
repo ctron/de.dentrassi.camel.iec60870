@@ -9,7 +9,7 @@
  *     IBH SYSTEMS GmbH - initial API and implementation
  *     Red Hat Inc - refactoring
  *******************************************************************************/
-package de.dentrassi.camel.iec60870.client.internal;
+package de.dentrassi.camel.iec60870.internal.client;
 
 import org.eclipse.neoscada.protocol.iec60870.asdu.message.DoublePointInformationSequence;
 import org.eclipse.neoscada.protocol.iec60870.asdu.message.DoublePointInformationSingle;

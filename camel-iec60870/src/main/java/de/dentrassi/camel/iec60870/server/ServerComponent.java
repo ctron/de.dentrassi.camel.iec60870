@@ -16,27 +16,56 @@
 
 package de.dentrassi.camel.iec60870.server;
 
+import java.net.UnknownHostException;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.eclipse.neoscada.protocol.iec60870.server.data.DataModuleOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class ServerComponent extends UriEndpointComponent {
+import de.dentrassi.camel.iec60870.AbstractIecComponent;
+import de.dentrassi.camel.iec60870.Constants;
+import de.dentrassi.camel.iec60870.ObjectAddress;
+import de.dentrassi.camel.iec60870.internal.ConnectionId;
+import de.dentrassi.camel.iec60870.internal.server.ServerConnectionMultiplexor;
+import de.dentrassi.camel.iec60870.internal.server.ServerInstance;
+
+public class ServerComponent extends AbstractIecComponent<ServerConnectionMultiplexor, ServerOptions> {
+
+	private final Logger logger = LoggerFactory.getLogger(ServerComponent.class);
 
 	public ServerComponent(final CamelContext context) {
-		super(context, ServerEndpoint.class);
+		super(ServerOptions.class, new ServerOptions(), context, ServerEndpoint.class);
 	}
 
 	public ServerComponent() {
-		super(ServerEndpoint.class);
+		super(ServerOptions.class, new ServerOptions(), ServerEndpoint.class);
 	}
 
 	@Override
-	protected Endpoint createEndpoint(final String uri, final String remaining, final Map<String, Object> parameters)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	protected void applyDataModuleOptions(final ServerOptions options, final Map<String, Object> parameters) {
+		if (parameters.get(Constants.PARAM_DATA_MODULE_OPTIONS) instanceof DataModuleOptions) {
+			options.setDataModuleOptions((DataModuleOptions) parameters.get(Constants.PARAM_DATA_MODULE_OPTIONS));
+		}
+	}
+
+	@Override
+	protected ServerConnectionMultiplexor createConnection(final ConnectionId id, final ServerOptions options) {
+		this.logger.debug("Create new server - id: {}", id);
+
+		try {
+			return new ServerConnectionMultiplexor(new ServerInstance(id.getHost(), id.getPort(), options));
+		} catch (final UnknownHostException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	protected Endpoint createEndpoint(final String uri, final ServerConnectionMultiplexor connection,
+			final ObjectAddress address) {
+		return new ServerEndpoint(uri, this, connection, address);
 	}
 
 }

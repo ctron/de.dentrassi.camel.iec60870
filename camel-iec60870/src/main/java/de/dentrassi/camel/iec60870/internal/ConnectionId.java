@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.dentrassi.camel.iec60870.client.internal;
+package de.dentrassi.camel.iec60870.internal;
 
 import java.util.Objects;
 
