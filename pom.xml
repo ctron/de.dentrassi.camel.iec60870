@@ -29,8 +29,8 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/ctron/de.dentrassi.camel.milo</connection>
-        <url>https://github.com/ctron/de.dentrassi.camel.milo</url>
+        <connection>scm:git:git://github.com/ctron/de.dentrassi.camel.iec60870</connection>
+        <url>https://github.com/ctron/de.dentrassi.camel.iec60870</url>
     </scm>
 
     <licenses>
@@ -63,7 +63,7 @@
             <url>http://repo1.maven.org/maven2</url>
         </repository>
 
-        <!-- enable snapshots for milo -->
+        <!-- special repo for NeoSCADA milestones -->
         <repository>
             <id>download.neoscada</id>
             <url>http://download.eclipse.org/eclipsescada/downloads/org.eclipse.scada/drops/0.4.0/S201612070556/maven</url>
