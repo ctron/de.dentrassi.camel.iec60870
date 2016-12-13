@@ -20,6 +20,7 @@ import java.util.Objects;
 
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriParams;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.neoscada.protocol.iec60870.ProtocolOptions;
 import org.eclipse.neoscada.protocol.iec60870.server.data.DataModuleOptions;
 
@@ -58,7 +59,7 @@ public class ServerOptions extends BaseOptions<ServerOptions> {
 	}
 
 	@Override
-	public ServerOptions copy() {
+	public @NonNull ServerOptions copy() {
 		return new ServerOptions(this);
 	}
 

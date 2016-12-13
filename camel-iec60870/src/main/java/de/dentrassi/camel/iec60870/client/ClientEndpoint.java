@@ -16,22 +16,25 @@
 
 package de.dentrassi.camel.iec60870.client;
 
+import static java.util.Objects.requireNonNull;
+
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.UriEndpoint;
+import org.eclipse.jdt.annotation.NonNull;
 
 import de.dentrassi.camel.iec60870.AbstractIecEndpoint;
 import de.dentrassi.camel.iec60870.ObjectAddress;
 import de.dentrassi.camel.iec60870.internal.client.ClientConnectionMultiplexor;
 
 @UriEndpoint(scheme = "iec60870-client", syntax = "iec60870-client:host:port/00-00-00-00-00", title = "IEC 60870-5-104 client", consumerClass = ClientConsumer.class, label = "iot")
-public class ClientEndpoint extends AbstractIecEndpoint<ClientConnectionMultiplexor> {
+public class ClientEndpoint extends AbstractIecEndpoint<@NonNull ClientConnectionMultiplexor> {
 
 	public ClientEndpoint(final String uri, final DefaultComponent component,
 			final ClientConnectionMultiplexor connection, final ObjectAddress address) {
-		super(uri, component, connection, address);
+		super(uri, component, requireNonNull(connection), address);
 	}
 
 	@Override

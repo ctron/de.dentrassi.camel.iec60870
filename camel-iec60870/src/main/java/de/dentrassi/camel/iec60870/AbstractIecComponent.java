@@ -16,6 +16,8 @@
 
 package de.dentrassi.camel.iec60870;
 
+import static java.util.Objects.requireNonNull;
+
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +25,7 @@ import java.util.Map;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.impl.UriEndpointComponent;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.neoscada.protocol.iec60870.ProtocolOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,18 +41,18 @@ public abstract class AbstractIecComponent<T1, T2 extends BaseOptions<T2>> exten
 
 	private final Class<T2> connectionOptionsClazz;
 
-	private T2 defaultConnectionOptions;
+	private @NonNull T2 defaultConnectionOptions;
 
 	protected abstract T1 createConnection(final ConnectionId id, final T2 options);
 
-	public AbstractIecComponent(final Class<T2> connectionOptionsClazz, final T2 defaultConnectionOptions,
+	public AbstractIecComponent(final Class<T2> connectionOptionsClazz, final @NonNull T2 defaultConnectionOptions,
 			final Class<? extends Endpoint> endpointClass) {
 		super(endpointClass);
 		this.connectionOptionsClazz = connectionOptionsClazz;
 		this.defaultConnectionOptions = defaultConnectionOptions;
 	}
 
-	public AbstractIecComponent(final Class<T2> connectionOptionsClazz, final T2 defaultConnectionOptions,
+	public AbstractIecComponent(final Class<T2> connectionOptionsClazz, final @NonNull T2 defaultConnectionOptions,
 			final CamelContext context, final Class<? extends Endpoint> endpointClass) {
 		super(context, endpointClass);
 		this.connectionOptionsClazz = connectionOptionsClazz;
@@ -58,12 +61,20 @@ public abstract class AbstractIecComponent<T1, T2 extends BaseOptions<T2>> exten
 
 	/**
 	 * Default connection options
+	 *
+	 * @param defaultConnectionOptions
+	 *            the new default connection options, must not be {@code null}
 	 */
 	public void setDefaultConnectionOptions(final T2 defaultConnectionOptions) {
-		this.defaultConnectionOptions = defaultConnectionOptions;
+		this.defaultConnectionOptions = requireNonNull(defaultConnectionOptions);
 	}
 
-	public T2 getDefaultConnectionOptions() {
+	/**
+	 * Get the default connection options
+	 *
+	 * @return the default connect options, never returns {@code null}
+	 */
+	public @NonNull T2 getDefaultConnectionOptions() {
 		return this.defaultConnectionOptions;
 	}
 

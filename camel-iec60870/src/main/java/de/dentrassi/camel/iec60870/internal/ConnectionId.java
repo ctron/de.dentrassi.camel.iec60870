@@ -18,6 +18,8 @@ package de.dentrassi.camel.iec60870.internal;
 
 import java.util.Objects;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 public class ConnectionId {
 	private final String host;
 
@@ -60,7 +62,7 @@ public class ConnectionId {
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(final @Nullable Object obj) {
 		if (this == obj) {
 			return true;
 		}

@@ -16,19 +16,22 @@
 
 package de.dentrassi.camel.iec60870.server;
 
+import static java.util.Objects.requireNonNull;
+
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriParam;
+import org.eclipse.jdt.annotation.NonNull;
 
 import de.dentrassi.camel.iec60870.AbstractIecEndpoint;
 import de.dentrassi.camel.iec60870.ObjectAddress;
 import de.dentrassi.camel.iec60870.internal.server.ServerConnectionMultiplexor;
 
 @UriEndpoint(scheme = "iec60870-server", syntax = "iec60870-server:host:port/00-00-00-00-00", title = "IEC 60870-5-104 server", consumerClass = ServerConsumer.class, label = "iot")
-public class ServerEndpoint extends AbstractIecEndpoint<ServerConnectionMultiplexor> {
+public class ServerEndpoint extends AbstractIecEndpoint<@NonNull ServerConnectionMultiplexor> {
 
 	/**
 	 * Filter out all requests which don't have the execute bit set
@@ -38,7 +41,7 @@ public class ServerEndpoint extends AbstractIecEndpoint<ServerConnectionMultiple
 
 	public ServerEndpoint(final String uri, final DefaultComponent component,
 			final ServerConnectionMultiplexor connection, final ObjectAddress address) {
-		super(uri, component, connection, address);
+		super(uri, component, requireNonNull(connection), address);
 	}
 
 	@Override

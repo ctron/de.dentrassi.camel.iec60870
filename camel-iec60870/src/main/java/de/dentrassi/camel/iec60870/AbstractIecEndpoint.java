@@ -16,7 +16,8 @@
 
 package de.dentrassi.camel.iec60870;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.camel.impl.DefaultComponent;
@@ -24,6 +25,7 @@ import org.apache.camel.impl.DefaultEndpoint;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.neoscada.protocol.iec60870.ProtocolOptions;
 import org.eclipse.neoscada.protocol.iec60870.client.data.DataModuleOptions;
 
@@ -31,7 +33,7 @@ import de.dentrassi.camel.iec60870.client.ClientOptions;
 import de.dentrassi.camel.iec60870.internal.AbstractConnectionMultiplexor;
 import de.dentrassi.camel.iec60870.internal.AbstractConnectionMultiplexor.Handle;
 
-public abstract class AbstractIecEndpoint<T extends AbstractConnectionMultiplexor> extends DefaultEndpoint {
+public abstract class AbstractIecEndpoint<@NonNull T extends AbstractConnectionMultiplexor> extends DefaultEndpoint {
 
 	/**
 	 * The object information address
@@ -76,11 +78,8 @@ public abstract class AbstractIecEndpoint<T extends AbstractConnectionMultiplexo
 			final ObjectAddress address) {
 		super(uri, component);
 
-		Objects.requireNonNull(connection);
-		Objects.requireNonNull(address);
-
-		this.connection = connection;
-		this.address = address;
+		this.connection = requireNonNull(connection);
+		this.address = requireNonNull(address);
 	}
 
 	public ObjectAddress getAddress() {

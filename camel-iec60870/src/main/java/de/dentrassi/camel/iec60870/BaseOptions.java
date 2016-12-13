@@ -21,6 +21,7 @@ import java.util.TimeZone;
 
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriParams;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.neoscada.protocol.iec60870.ASDUAddressType;
 import org.eclipse.neoscada.protocol.iec60870.CauseOfTransmissionType;
 import org.eclipse.neoscada.protocol.iec60870.InformationObjectAddressType;
@@ -54,7 +55,7 @@ public abstract class BaseOptions<T extends BaseOptions<T>> {
 		return this.protocolOptions.build();
 	}
 
-	public abstract T copy();
+	public abstract @NonNull T copy();
 
 	// wrapper methods - ProtocolOptions
 

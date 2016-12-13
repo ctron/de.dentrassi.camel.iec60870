@@ -37,7 +37,7 @@
             <artifactId>org.eclipse.neoscada.protocol.iec60870.client.data</artifactId>
             <version>0.4.0</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.eclipse.scada.protocols</groupId>
             <artifactId>org.eclipse.neoscada.protocol.iec60870.server</artifactId>
@@ -49,7 +49,7 @@
             <artifactId>org.eclipse.neoscada.protocol.iec60870.server.data</artifactId>
             <version>0.4.0</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.eclipse.scada.utils</groupId>
             <artifactId>org.eclipse.scada.utils</artifactId>
@@ -81,6 +81,18 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-stream</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- lastnpe.org -->
+
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.annotation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.lastnpe.eea</groupId>
+            <artifactId>jdk-eea</artifactId>
         </dependency>
 
     </dependencies>

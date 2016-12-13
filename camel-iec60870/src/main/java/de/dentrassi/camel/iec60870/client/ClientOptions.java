@@ -20,6 +20,7 @@ import java.util.Objects;
 
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriParams;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.neoscada.protocol.iec60870.ProtocolOptions;
 import org.eclipse.neoscada.protocol.iec60870.client.data.DataModuleOptions;
 
@@ -61,7 +62,7 @@ public class ClientOptions extends BaseOptions<ClientOptions> {
 	}
 
 	@Override
-	public ClientOptions copy() {
+	public @NonNull ClientOptions copy() {
 		return new ClientOptions(this);
 	}
 
