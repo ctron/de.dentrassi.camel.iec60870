@@ -1,7 +1,7 @@
 [[Iec60870Server-ServerComponent]]
 
 IEC 60870-5-104 Server Component
-~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *Available as of Camel 2.20*
 

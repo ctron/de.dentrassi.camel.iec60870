@@ -1,7 +1,7 @@
 [[Iec60870Client-ClientComponent]]
 
 IEC 60870-5-104 Client Component
-~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *Available as of Camel 2.20*
 
