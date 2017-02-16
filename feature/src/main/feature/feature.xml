@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.4.0 http://karaf.apache.org/xmlns/features/v1.4.0"
+    name="camel-milo-${project.version}">
+
+    <feature name="neoscada-iec60870" version="${project.version}">
+        <details>Eclipse NeoSCADA :: IEC 60870</details>
+
+        <bundle>mvn:org.eclipse.neoscada.protocols/org.eclipse.neoscada.protocol.iec60870/0.4.0</bundle>
+        <bundle>mvn:org.eclipse.neoscada.protocols/org.eclipse.neoscada.protocol.iec60870.client/0.4.0</bundle>
+        <bundle>mvn:org.eclipse.neoscada.protocols/org.eclipse.neoscada.protocol.iec60870.client.data/0.4.0</bundle>
+        <bundle>mvn:org.eclipse.neoscada.protocols/org.eclipse.neoscada.protocol.iec60870.server/0.4.0</bundle>
+        <bundle>mvn:org.eclipse.neoscada.protocols/org.eclipse.neoscada.protocol.iec60870.server.data/0.4.0</bundle>
+
+        <bundle dependency="true">mvn:io.netty/netty-buffer/${netty-version}</bundle>
+        <bundle dependency="true">mvn:io.netty/netty-codec/${netty-version}</bundle>
+        <bundle dependency="true">mvn:io.netty/netty-common/${netty-version}</bundle>
+        <bundle dependency="true">mvn:io.netty/netty-handler/${netty-version}</bundle>
+        <bundle dependency="true">mvn:io.netty/netty-transport/${netty-version}</bundle>
+
+        <bundle dependency="true">mvn:com.google.guava/guava/19.0</bundle>
+
+        <bundle dependency="true">mvn:org.eclipse.neoscada.utils/org.eclipse.scada.utils/0.4.0</bundle>
+
+    </feature>
+
+    <feature name="camel-iec60870" version="${project.version}">
+        <details>This is an Apache Camel adapter for IEC 60870, based on the implementation of Eclipse NeoSCADA™</details>
+
+        <feature dependency="true">neoscada-iec60870</feature>
+
+        <feature prerequisite="false" dependency="true" version="[2.17,3)">camel-core</feature>
+
+        <bundle>mvn:de.dentrassi.camel.iec60870/camel-iec60870/${project.version}</bundle>
+
+    </feature>
+</features>
