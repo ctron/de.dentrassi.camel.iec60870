@@ -125,7 +125,7 @@ public class ClientConnection {
 				listener.update(address, last);
 			}
 		} else {
-			this.listeners.remove(listener);
+			this.listeners.remove(address);
 		}
 	}
 
