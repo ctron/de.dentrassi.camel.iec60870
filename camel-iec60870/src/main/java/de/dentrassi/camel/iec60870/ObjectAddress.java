@@ -98,7 +98,7 @@ public class ObjectAddress {
 
 			if (v < 0 || v > 255) {
 				throw new IllegalArgumentException(
-						String.format("Address segment must be an octet, between 0 and 255 (is %s), v"));
+						String.format("Address segment must be an octet, between 0 and 255 (is %s)", v));
 			}
 
 			a[i] = v;
