@@ -1,6 +1,10 @@
 # Apache Camel™ IEC 60870 Component [![Build status](https://api.travis-ci.org/ctron/de.dentrassi.camel.iec60870.svg "Travis Build Status")](https://travis-ci.org/ctron/de.dentrassi.camel.iec60870) [![Maven Central](https://img.shields.io/maven-central/v/de.dentrassi.camel.iec60870/camel-iec60870.svg)](https://search.maven.org/#search|ga|1|g%3A%22de.dentrassi.camel.iec60870%22%20AND%20a%3A%22camel-iec60870%22)
 
+---
+
 **Note:** This component has been contributed to Apache Camel: https://camel.apache.org/components/latest/iec60870-client-component.html. This repository is only here for the sake of history. Further development will happen at Apache Camel.
+
+---
 
 This is an Apache Camel component for providing IEC 60870 client and server functionality based on Eclipse NeoSCADA™.
 
